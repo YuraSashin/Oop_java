@@ -4,4 +4,18 @@ public class Mag extends Characters {
     public Mag(String name, int hp, int attack, int speed){
         super(name, hp, attack, speed);
 }
+    public Mag(String name){
+        super(name, 100, 10, 30);
+        super.name = name;
+    }
+
+    @Override
+    public void step(){
+        super.step();
+    }
+
+    @Override
+    public String getinfo(){
+        return "Я Маг";
+    }
 }

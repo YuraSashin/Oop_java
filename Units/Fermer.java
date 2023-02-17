@@ -10,4 +10,19 @@ public class Fermer extends Characters {
     public int getcarttriges(){
         return 0;
     }
+
+    public Fermer(String name){
+        super(name, 100, 1, 20);
+        super.name = name;
+    }
+
+    @Override
+    public void step(){
+        super.step();
+    }
+
+    @Override
+    public String getinfo(){
+        return "Я Крестьянин";
+    }
 }

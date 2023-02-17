@@ -1,4 +1,4 @@
-public class Characters {
+public abstract class Characters implements Getinterface {
     protected String name;
     protected int hp;
     protected int attack;
@@ -21,6 +21,16 @@ public class Characters {
 
     public int getSpeed(){
         return 0;
+    }
+
+    @Override
+    public void step(){
+
+    }
+
+    @Override
+    public String getinfo(){
+        return "Я человек";
     }
 } 
 

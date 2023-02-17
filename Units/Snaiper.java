@@ -8,4 +8,18 @@ int disquise;
         super(name, hp, attack, speed);
 }
 
+    public Snaiper(String name){
+        super(name,50,50,10);
+        super.name = name;
+    }
+
+    @Override
+    public void step(){
+        super.step();
+    }
+
+    @Override
+    public String getinfo(){
+        return "Я Снайпер";
+    }
 }
