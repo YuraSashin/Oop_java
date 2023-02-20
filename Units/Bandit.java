@@ -1,10 +1,10 @@
 public class Bandit extends Characters {
-    public Bandit(String name, int hp, int attack, int speed){
-        super(name, hp, attack, speed);
+    public Bandit(String name, int hp, int maxHp, int minAttack, int maxAttack, int armor, int speed){
+        super(name, hp, maxHp, minAttack, maxAttack, armor, speed);
 }
 
 public Bandit(String name){
-    super(name, 100, 1, 15);
+    super(name, 10, 10, 2, 4,3, 6);
     super.name = name;
 }
 

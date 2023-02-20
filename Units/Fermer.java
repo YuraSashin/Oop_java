@@ -1,10 +1,10 @@
 public class Fermer extends Characters {
     
-    int feed;
-    int cartriges;
+    int delivery;// доставка
 
-    public Fermer(String name, int hp, int attack, int speed){
-        super(name, hp, attack, speed);
+
+    public Fermer(String name, int hp, int maxHp, int minAttack, int maxAttack, int armor, int speed){
+        super(name, hp, maxHp, minAttack, maxAttack,armor, speed);
     }
 
     public int getcarttriges(){
@@ -12,7 +12,7 @@ public class Fermer extends Characters {
     }
 
     public Fermer(String name){
-        super(name, 100, 1, 20);
+        super(name, 1, 1, 1,1,1, 3);
         super.name = name;
     }
 

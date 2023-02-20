@@ -1,15 +1,13 @@
 public class Snaiper extends Characters {
     
-int accurasy;
-int ammunition;
-int disquise;
+int ammunition;//боезапас
 
-    public Snaiper(String name, int hp, int attack, int speed){
-        super(name, hp, attack, speed);
+    public Snaiper(String name, int hp, int maxHp, int minAttack, int maxAttack, int armor,int speed){
+        super(name, hp, maxHp, minAttack, maxAttack,armor, speed);
 }
 
     public Snaiper(String name){
-        super(name,50,50,10);
+        super(name,15,15,8,12,10,9);
         super.name = name;
     }
 
