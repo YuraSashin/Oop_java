@@ -16,6 +16,15 @@ import java.util.Comparator;
 // Положить в них по 10 случайных персонажей. В первом только крестьянин, разбойник, снайпер или колдун. Во втором крестьянин, копейщик, арбалетчик,
 //  монах. Вывести в консоль информацию обо всех персонажах не зависимо от списка, очередь должна определяться скоростью каждого персонажа.
 // Семинар 3 
+
+// Создать класс с описанием координат, x и y.
+// Добавить в абстрактный класс порле с координатами и пробросить его инициализацию до конструкторов персонажей. Farmer farmer = new Farmer(getName(), x, y);
+// Реализовать метод step() лучников. 
+// 3.1 Если жизнь равна нулю или стрел нет, завершить оьработку.
+// 3.2 Поиск среди противников наиболее приближённого. 
+// 3.3 Нанести среднее повреждение найденному противнику. 
+// 3.4 Найти среди своих крестьянина. 
+// 3.5 Если найден завершить метод иначе уменьшить запас стрел на одну.
 public class Main {
     public static void main(String[] args) {
 
@@ -24,7 +33,9 @@ public class Main {
 
         System.out.println("Команда 1");
         while(arrayList1.size()< 10){
-            Characters.createArrayList(arrayList1, Characters.setClass());
+            int a = 0;
+            Characters.createArrayList(arrayList1, Characters.setClass(), a);
+            a++;
         }
 
         for (int i = 0; i < arrayList1.size(); i++) {
@@ -35,7 +46,9 @@ public class Main {
         ArrayList<Characters> arrayList2 = new ArrayList<>();
 
         while(arrayList2.size()< 10){
-            Characters.createArrayList2(arrayList2, Characters.setClass());
+            int a = 0;
+            Characters.createArrayList2(arrayList2, Characters.setClass(),a);
+            a++;
         }
 
         System.out.println("Команда 2");
@@ -51,6 +64,11 @@ public class Main {
             }
         });
         System.out.println(arrayOll);
+
+        // Snaiper snaiper1 = new Snaiper("Рома", 10, 10, 3, 10, 0, 0, 0, 0);
+        // ArrayList<Characters> l3 = new ArrayList<>();
+        // l3.add(snaiper1);
+        // snaiper1.step(arrayList2, l3); Проверка степа
     }  
 }    
 

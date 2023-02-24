@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+
 public interface Getinterface {
-    void step();
+    default void step(ArrayList<Characters> t1, ArrayList<Characters> t2) {
+    }
 
     String getinfo();
 }
