@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Snaiper extends Characters {
     
@@ -15,64 +14,37 @@ public class Snaiper extends Characters {
         super.name = name;
     }
 
-    boolean FermerSearch(ArrayList<Characters> t){
-        boolean fermer = true;
-        for (int i = 0; i < t.size(); i++) {
-            if(t.get(i) instanceof Fermer){
-                fermer = false;
-            }
-        }
-        return fermer;   
-    }// Поиск фермера, задача 3.4
+    // boolean FermerSearch(ArrayList<Characters> t){
+    //     boolean fermer = true;
+    //     for (int i = 0; i < t.size(); i++) {
+    //         if(t.get(i) instanceof Fermer){
+    //             fermer = false;
+    //         }
+    //     }
+    //     return fermer;   
+    // } Поиск фермера, задача 3.4
 
     @Override
-    public void step(ArrayList<Characters> team1, ArrayList<Characters> team2){//Реализация заданий для семинара 3
-        Random rnd = new Random();
-        if(this.hp  == 0 || this.ammunition == 0){
-            System.out.println("Конец хода");
+    public void step(ArrayList<Characters> team1, ArrayList<Characters> team2){
+        if(state.equals("Die") || ammunition == 0) return;
+        System.out.println("Снайпер в деле");
+        int target = ClosestEnemy(team2);
+        int damages;
+        if(team2.get(target).armor < minAttack){
+            damages = maxAttack;
         }else{
-            if (team1.contains(this)){
-                double min = Vector2D.Distance(this, (Characters) team2.get(0));//Назначаю первый индекс за минимум
-                double tmp;
-                int index = 0;
-                for (int i = 0; i < team2.size(); i++) {
-                    tmp = Vector2D.Distance(this, (Characters) team2.get(i));
-                    if(min > tmp){
-                        min = tmp;
-                        index = i;
-                    }// Дистанция до противника и его индекс
-                }
-                System.out.println(this.toString());
-                System.out.println(team2.get(index));
-                System.out.printf("%s атакует %s\n", this.name, team2.get(index).name);
-                team2.get(index).hp -= rnd.nextInt(this.minAttack, this.maxAttack + 1);
-                if(FermerSearch(team2)){
-                    this.ammunition --;
-                }
-                System.out.println(this.toString());
-                System.out.println(team2.get(index));
-            }else{
-                double min = Vector2D.Distance(this, (Characters) team1.get(0));//Назначаю первый индекс за минимум
-                double tmp;
-                int index = 0;
-                for (int i = 0; i < team1.size(); i++) {
-                    tmp = Vector2D.Distance(this, (Characters) team1.get(i));
-                    if(min > tmp){
-                        min = tmp;
-                        index = i;
-                    }
-                }
-                System.out.println(this.toString());
-                System.out.println(team1.get(index));
-                System.out.printf("%s атакует %s\n", this.name, team1.get(index).name);
-                team1.get(index).hp -= rnd.nextInt(this.minAttack, this.maxAttack + 1);
-                if(FermerSearch(team1)){
-                    this.ammunition --;
-                }
-                System.out.println(this.toString());
-                System.out.println(team1.get(index));
+            damages = minAttack;
+        }
+        team2.get(target).GetDamage(damages);
+        for (int i = 0; i < team1.size(); i++) {
+          if((team1.get(i).getinfo().equals("Я Крестьянин")) && 
+                team1.get(i).state.equals("Stand")){
+                    team1.get(i).state = "Busy";
+                    return;
             }
         }
+        ammunition --;
+        System.out.println("dc`");
     }
     @Override
     public String getinfo(){

@@ -20,6 +20,9 @@ public class Fermer extends Characters {
 
     @Override
     public void step(ArrayList<Characters> team1, ArrayList<Characters> team2){
+        if(!state.equals("Die")){
+            state = "Stand";
+        }
     }
 
     @Override

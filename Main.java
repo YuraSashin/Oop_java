@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 
 // Крестьянин, разбойник, снайпер, колдун, копейщик, арбалетчик, монах. Для каждого сформировать список свойств и возможных действий. 
 // Напрнимер свойство скорость, действие нанести удар. Проанализировать получившиеся свойства и действия персонажей и создать Обобщённый класс 
@@ -25,6 +26,11 @@ import java.util.Comparator;
 // 3.3 Нанести среднее повреждение найденному противнику. 
 // 3.4 Найти среди своих крестьянина. 
 // 3.5 Если найден завершить метод иначе уменьшить запас стрел на одну.
+//Семинар4
+
+// Пример реализации шага лучника в архиве. Доработать шаг лучника в своём проекте. Сделать степ крестьян - если не труп то state = "Stand"
+// если не труп то найти среди своих персонажа с здоровьем меньше максимального и вылечить его!
+//Семинар5
 public class Main {
     public static void main(String[] args) {
 
@@ -32,11 +38,7 @@ public class Main {
         ArrayList<Characters>arrayOll = new ArrayList<>();
 
         System.out.println("Команда 1");
-        while(arrayList1.size()< 10){
-            int a = 0;
-            Characters.createArrayList(arrayList1, Characters.setClass(), a);
-            a++;
-        }
+        Characters.createArrayList(arrayList1, 0, 1);
 
         for (int i = 0; i < arrayList1.size(); i++) {
             System.out.println( arrayList1.get(i).getinfo());
@@ -44,14 +46,9 @@ public class Main {
         }
 
         ArrayList<Characters> arrayList2 = new ArrayList<>();
-
-        while(arrayList2.size()< 10){
-            int a = 0;
-            Characters.createArrayList2(arrayList2, Characters.setClass(),a);
-            a++;
-        }
-
+        Characters.createArrayList(arrayList2, 3, 10);
         System.out.println("Команда 2");
+        
         for (int i = 0; i < arrayList2.size(); i++) {
             System.out.println(arrayList2.get(i).getinfo());
             arrayOll.add(arrayList2.get(i));
@@ -63,12 +60,19 @@ public class Main {
                 return o2.getSpeed() - o1.getSpeed();
             }
         });
-        System.out.println(arrayOll);
 
-        // Snaiper snaiper1 = new Snaiper("Рома", 10, 10, 3, 10, 0, 0, 0, 0);
-        // ArrayList<Characters> l3 = new ArrayList<>();
-        // l3.add(snaiper1);
-        // snaiper1.step(arrayList2, l3); Проверка степа
+        Scanner user_input = new Scanner(System.in);
+        while (true) {
+            for (Characters human: arrayOll) {
+                if(arrayList1.contains(human)){
+                    human.step(arrayList1, arrayList2);
+                }else{
+                    human.step(arrayList2, arrayList1);
+                }
+            }
+            user_input.nextLine();
+            System.out.println(arrayOll);
+        }
     }  
 }    
 

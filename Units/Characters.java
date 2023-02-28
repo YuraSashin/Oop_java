@@ -10,6 +10,7 @@ public abstract class Characters implements Getinterface {
     protected int armor;
     protected int speed;
     public Vector2D pos;
+    protected String state;
     
     public Characters(String name, int hp,int maxHp, int minAttack, int maxAttack,int armor, int speed, int x, int y){
         this.name = name;
@@ -20,6 +21,7 @@ public abstract class Characters implements Getinterface {
         this.armor = armor;
         this.speed = speed;
         pos = new Vector2D(x,y);
+        state = "Stand";
     }
 
     public int getAttack(){
@@ -53,28 +55,56 @@ public abstract class Characters implements Getinterface {
         return String.valueOf(Names.values()[new Random().nextInt(Names.values().length -1)]);
     }
 
-    public static ClassesCharacters setClass(){
-        return ClassesCharacters.values()[new Random().nextInt(ClassesCharacters.values().length- 1)];
-    }
-
-    public static void createArrayList(ArrayList<Characters> arrayList1, ClassesCharacters units, int a){
-        switch(units){
-            case Mag -> arrayList1.add(new Mag(setName(), a, 0));
-            case Snaiper -> arrayList1.add(new Snaiper(setName(),a,0));
-            case Fermer -> arrayList1.add(new Fermer(setName(),a,0));
-            case Bandit -> arrayList1.add(new Bandit(setName(),a,0));
+   public static void createArrayList(ArrayList<Characters>  team, int offset, int posY){//создание команд
+    for (int i = 1; i <= 10; i++) {
+        int rnd = new Random().nextInt(4) + offset;
+        switch (rnd){
+            case (0):
+                team.add(new Snaiper(Characters.setName(),i, posY));
+                break;
+            case (1):
+                team.add(new Bandit(Characters.setName(),i, posY));
+                break;
+            case (2):
+                team.add(new Mag(Characters.setName(),i, posY));
+                break;
+            case (3):
+                team.add(new Fermer(Characters.setName(),i, posY));
+                break;
+            case (4):
+                team.add(new Crossbowman(Characters.setName(),i, posY));
+                break;
+            case (5):
+                team.add(new Monk(Characters.setName(),i, posY));
+                break;
+            case (6):
+                team.add(new Spearman(Characters.setName(),i, posY));
+                break;
         }
     }
+}
 
-    public static void createArrayList2(ArrayList<Characters> arrayList2, ClassesCharacters units, int a){
-        switch(units){
-            case Monk -> arrayList2.add(new Monk(setName(),a,10));
-            case Sperman -> arrayList2.add(new Spearman(setName(), a, 10));
-            case Fermer -> arrayList2.add(new Fermer(setName(),a,10 ));
-            case Crossbowman -> arrayList2.add(new Crossbowman(setName(),a,10));
+    public int ClosestEnemy(ArrayList<Characters> team){//нахождение ближайшего живого противника
+       double min = pos.Distance(team.get(0).pos);
+       int index = 0;
+        for (int i = 0; i < team.size(); i++) {
+            if(min > pos.Distance(team.get(i).pos) & !team.get(i).state.equals("Die")){
+                index = i;
+                min = pos.Distance(team.get(i).pos);
+            }
         }
+        return index;
     }
     
-    
+    protected void GetDamage(int damage){// метод атаки/лечения
+        hp -= damage;
+        if(hp > maxHp){
+            hp = maxHp;
+        }
+        if(hp < 0){
+            hp = 0;
+            state = "Die";
+        }
+    }
 } 
 

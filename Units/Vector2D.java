@@ -7,8 +7,8 @@ public class Vector2D {
         this.y = y;
     }
 
-    public static double Distance(Characters u1, Characters u2){
-        return Math.sqrt((u1.pos.x - u2.pos.x)^2 + (u1.pos.y - u2.pos.y)^2);
+    public double Distance(Vector2D enemy){
+        return Math.sqrt((x - enemy.x)^2 + (y - enemy.y)^2);
       };
 
     // public void SetPos(int posX, int posY){
