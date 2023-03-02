@@ -13,6 +13,12 @@ public class Mag extends Characters {
 
     @Override
     public void step(ArrayList<Characters> team1, ArrayList<Characters> team2){
+        for (Characters unit: team1) {
+            if(unit.hp < unit.maxHp){
+                unit.GetDamage(maxAttack);
+                break;
+            }
+        }
     }
 
     @Override

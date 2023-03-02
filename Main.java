@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
+import java.util.Random;
 
 // Крестьянин, разбойник, снайпер, колдун, копейщик, арбалетчик, монах. Для каждого сформировать список свойств и возможных действий. 
 // Напрнимер свойство скорость, действие нанести удар. Проанализировать получившиеся свойства и действия персонажей и создать Обобщённый класс 
@@ -31,50 +32,47 @@ import java.util.Scanner;
 // Пример реализации шага лучника в архиве. Доработать шаг лучника в своём проекте. Сделать степ крестьян - если не труп то state = "Stand"
 // если не труп то найти среди своих персонажа с здоровьем меньше максимального и вылечить его!
 //Семинар5
+
+//В приложении архив с проектом. Можно использовать его в своём проекте. Реализовать вывод псевдографики. Доработать степы магов лучников и крестьян.
+// Семинар6
+
 public class Main {
+    public static ArrayList<Characters> allTeam = new ArrayList<>();
+    public static ArrayList<Characters> holyTeam = new ArrayList<>();
+    public static ArrayList<Characters> darkTeam = new ArrayList<>();
+
     public static void main(String[] args) {
-
-        ArrayList<Characters> arrayList1 = new ArrayList<>();
-        ArrayList<Characters>arrayOll = new ArrayList<>();
-
         System.out.println("Команда 1");
-        Characters.createArrayList(arrayList1, 0, 1);
+        Characters.createArrayList(allTeam, 0, 1);
 
-        for (int i = 0; i < arrayList1.size(); i++) {
-            System.out.println( arrayList1.get(i).getinfo());
-            arrayOll.add(arrayList1.get(i));
-        }
-
-        ArrayList<Characters> arrayList2 = new ArrayList<>();
-        Characters.createArrayList(arrayList2, 3, 10);
         System.out.println("Команда 2");
-        
-        for (int i = 0; i < arrayList2.size(); i++) {
-            System.out.println(arrayList2.get(i).getinfo());
-            arrayOll.add(arrayList2.get(i));
-        }
+        Characters.createArrayList(holyTeam, 0, 1);
 
-        System.out.println(arrayOll);
-        arrayOll.sort(new Comparator<Characters>() {
-            public int compare(Characters o1, Characters o2){
-                return o2.getSpeed() - o1.getSpeed();
+        allTeam.addAll(holyTeam);
+        allTeam.addAll(darkTeam);
+        sortTeam(allTeam);
+        
+        Scanner user_input = new Scanner(System.in);
+        while (true){
+            View.view();
+            user_input.nextLine();
+            for (Characters human: allTeam) {
+                if (holyTeam.contains(human)) human.step(holyTeam, darkTeam);
+                else human.step(darkTeam, holyTeam);
+            }
+        }
+    }
+ 
+    static void sortTeam (ArrayList<Characters> team){
+        team.sort(new Comparator<Characters>() {
+            @Override
+            public int compare(Characters t0, Characters t1) {
+                if (t1.getSpeed() == t0.getSpeed()) return (int) (t1.getHp() - t0.getHp());
+                else  return (int) (t1.getSpeed() - t0.getSpeed());
             }
         });
-
-        Scanner user_input = new Scanner(System.in);
-        while (true) {
-            for (Characters human: arrayOll) {
-                if(arrayList1.contains(human)){
-                    human.step(arrayList1, arrayList2);
-                }else{
-                    human.step(arrayList2, arrayList1);
-                }
-            }
-            user_input.nextLine();
-            System.out.println(arrayOll);
-        }
-    }  
-}    
-
-
-
+    }
+    static String getName() {
+        return String.valueOf(Names.values()[new Random().nextInt(Names.values().length-1)]);
+    }
+}

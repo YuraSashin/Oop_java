@@ -36,6 +36,10 @@ public abstract class Characters implements Getinterface {
         return speed;
     }
 
+    public int[] getPos(){
+        return new int[]{pos.x,pos.y};
+    }
+
     @Override
     public void step(ArrayList<Characters> tean1, ArrayList<Characters> tean2){
         Getinterface.super.step(tean1, tean2);
