@@ -13,7 +13,35 @@ public class Spearman extends Characters {
     }
     @Override
     public void step(ArrayList<Characters> team1, ArrayList<Characters> team2){
+        if(state.equals("Die")) return;
+        int index = ClosestEnemy(team2);
+        if(index < 2){
+            int damage;
+            if(team2.get(index).armor - maxAttack > 0){
+                damage = maxAttack;
+            }else{
+                damage = minAttack;
+            }
+        team2.get(index).GetDamage(damage);
+        return;
+        }else{
+            if (pos.getDown(team2.get(index).pos) & (pos.y != team2.get(index).pos.y)){
+                pos.y++;
+                return;
+            }else if(!pos.getDown(team2.get(index).pos) & (pos.y != team2.get(index).pos.y)){
+                pos.y--;
+                return;
+            }
+            if(pos.getLeft(team2.get(index).pos)){
+                pos.x ++;
+                return;
+            }else{
+                pos.x --;
+                return;
+            }
+        }
     }
+    
 
     @Override
     public String getinfo(){

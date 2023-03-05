@@ -8,8 +8,16 @@ public class Vector2D {
     }
 
     public double Distance(Vector2D enemy){
-        return Math.sqrt((x - enemy.x)^2 + (y - enemy.y)^2);
-      };
+        return Math.sqrt(Math.pow(x - enemy.x,2) + Math.pow(y - enemy.y,2));
+    }
+
+    protected boolean getLeft(Vector2D oponent){
+        return oponent.x < x;
+    }
+
+    protected boolean getDown(Vector2D oponent){
+        return oponent.y < y;
+    }
 
     // public void SetPos(int posX, int posY){
     //     this.posX = posX;

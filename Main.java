@@ -44,13 +44,16 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Команда 1");
         Characters.createArrayList(allTeam, 0, 1);
+        //System.out.println(allTeam);
 
         System.out.println("Команда 2");
         Characters.createArrayList(holyTeam, 0, 1);
+        //System.out.println(holyTeam);
 
         allTeam.addAll(holyTeam);
         allTeam.addAll(darkTeam);
         sortTeam(allTeam);
+        //System.out.println(allTeam);
         
         Scanner user_input = new Scanner(System.in);
         while (true){
